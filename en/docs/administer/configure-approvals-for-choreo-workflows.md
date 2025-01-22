@@ -25,7 +25,7 @@ Click the respective tab for details on permissions depending on the workflow fo
      To review and respond to API subscription approval requests, a user must have the following permissions. Administrators must ensure that users designated to review and respond to approval requests have these permissions:
 
       - **WORKFLOW-MANAGEMENT**:
-          - Approve API subscriptions: Grants access to review and approve API subscription workflow requests
+          - Approve API subscriptions: Grants access to review and approve API subscription workflow requests.
       - **PROJECT-MANAGEMENT**: 
           Grants access to view and approve workflow requests. This is the same permission used to update or delete projects.
 
