@@ -17,7 +17,7 @@ Click the respective tab for details on permissions depending on the workflow fo
      To review and respond to environment promotion approval requests, a user must have the following permissions. Administrators must ensure that users designated to review and respond to approval requests have these permissions:
 
       - **WORKFLOW-MANAGEMENT**: 
-          - Approve component promotion requests: Grants access to review and approve environment promotion requests.
+          - Approve component promotion requests: Grants access to review and approve the promotion of components to critical environments.
       - **PROJECT-MANAGEMENT**: Grants access to view and approve workflow requests. This is the same permission used to update or delete projects.
 
 === "API subscription"
