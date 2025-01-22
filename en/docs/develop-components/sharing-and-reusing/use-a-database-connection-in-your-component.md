@@ -73,7 +73,7 @@ To integrate a database into your application, click the appropriate tab below b
 === "Component.yaml file (v1.0)"
 
     !!! note
-        This `component.yaml v1.0` is a legacy configuration format. For new components, we recommend using the latest version (v1.1) of `component.yaml` for improved usability and features.
+        The `component.yaml v1.0` file is considered legacy. For new components, we recommend using the latest version, `component.yaml v1.1`, which offers enhanced usability and features.
 
     1. Copy and paste the snippet from the in-line developer guide into the `component.yaml` file.
 
@@ -136,7 +136,7 @@ To integrate a database into your application, click the appropriate tab below b
 === "Component-config.yaml file"
 
     !!! note
-        This `component-config.yaml` is a legacy configuration format. For new components, we recommend using the latest version (v1.1) of `component.yaml` for improved usability and features.
+        The `component-config.yaml` file is considered legacy. For new components, we recommend using the latest version, `component.yaml v1.1`, which offers enhanced usability and features.
 
     1. Copy and paste the snippet from the in-line developer guide into the `component-config` file under the `spec` section.
 
