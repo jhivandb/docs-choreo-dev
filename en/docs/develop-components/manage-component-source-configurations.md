@@ -6,8 +6,7 @@ The source configuration file must be committed to your repository within the `.
 
 !!! note
     -  The `component-config.yaml` and `endpoints.yaml` files will eventually be deprecated and replaced by the `component.yaml` file. 
-        - For details on how you can migrate to the `component.yaml` file from the `component-config.yaml` file, see [Migrate from the `component-config.yaml`](#migrate-from-the-component-configyaml-file).
-        - For details on how you can migrate to the `component.yaml` file from the `endpoints.yaml` file, see [Migrate from the `endpoints.yaml`](#migrate-from-the-endpointsyaml-file).
+        - For details on how to seamlessly update to the latest `component.yaml` file`, see [Update to the latest source configuration file](#update-to-the-latest-source-configuration-file).
     - Choreo prioritizes configuration files in the following order: `component.yaml` takes the highest precedence, followed by `component-config.yaml`, and then `endpoints.yaml`.
 
 ## Overview of the `component.yaml` file 
@@ -60,14 +59,14 @@ Click the respective tab to view the structure for your current configuration fi
         # The path should be relative to the docker context.
         schemaFilePath: openapi.yaml
       
-      # +optional Outgoing connection details for the component.
-      dependencies:
-        # +optional Defines the connection references from the Internal Marketplace.
-        connectionReferences:
-          # +required Name of the connection.
-          - name: hr-connection
-            # +required service identifer of the dependent component.
-            resourceRef: service:/HRProject/UserComponent/v1/ad088/PUBLIC
+    # +optional Outgoing connection details for the component.
+    dependencies:
+      # +optional Defines the connection references from the Internal Marketplace.
+      connectionReferences:
+        # +required Name of the connection.
+        - name: hr-connection
+          # +required service identifer of the dependent component.
+          resourceRef: service:/HRProject/UserComponent/v1/ad088/PUBLIC
 
     ```
 
@@ -147,20 +146,20 @@ Click the respective tab to view the structure for your current configuration fi
         # The path should be relative to the docker context.
         schemaFilePath: openapi.yaml
       
-      # +optional Outgoing connection details for the component.
-      dependencies:
-        # +optional Defines the service references from the Internal Marketplace.
-        serviceReferences:
-          # +required Name of the service reference.
-          - name: choreo:///apifirst/HRProject/UserComponent/ad088/v1/PUBLIC
-            # +required Name of the connection instance.
-            connectionConfig: 19d2648b-d29c-4452-afdd-1b9311e81412
-            # +required Environment variables injected into the component for connection configuration.
-            env:
-              # +required Key name of the connection configuration.
-              - from: ServiceURL
-                # +required Environment variable injected into the container.
-                to: SERVICE_URL
+    # +optional Outgoing connection details for the component.
+    dependencies:
+      # +optional Defines the service references from the Internal Marketplace.
+      serviceReferences:
+        # +required Name of the service reference.
+        - name: choreo:///apifirst/HRProject/UserComponent/ad088/v1/PUBLIC
+          # +required Name of the connection instance.
+          connectionConfig: 19d2648b-d29c-4452-afdd-1b9311e81412
+          # +required Environment variables injected into the component for connection configuration.
+          env:
+            # +required Key name of the connection configuration.
+            - from: ServiceURL
+              # +required Environment variable injected into the container.
+              to: SERVICE_URL
     ```
 
     The descriptor-based approach of the `component.yaml` file simplifies and streamlines endpoint and connection configuration management. The use of versioned schemas ensures backward compatibility, providing a seamless transition with future updates.
@@ -336,28 +335,44 @@ You can define the following root-level configurations via the `endpoints.yaml` 
 | **context**          | Required     | The context (base path) of the API that Choreo exposes via this endpoint.        |
 | **schemaFilePath**   | Required     | The swagger definition file path. Defaults to the wildcard route if not provided. This field should be a relative path to the project path when using the **Java**, **Python**, **NodeJS**, **Go**, **PHP**, **Ruby**, and **WSO2 MI** buildpacks. For REST endpoint types, when using the **Ballerina** or **Dockerfile** buildpack, this field should be a relative path to the component root or Docker context.|
 
-## Migration guide
+## Update to the latest source configuration file
 
-With the upcoming deprecation of the `component-config.yaml` file and the `endpoints.yaml` file, Choreo provides a seamless migration path to the `component.yaml` file. See the following guidelines for details depending on the configuration you want to migrate from:
+With the upcoming deprecation of the `component-config.yaml` file and the `endpoints.yaml` file, Choreo provides a seamless process to move to the latest `component.yaml`  version of the `component.yaml` file. Follow these steps to transition seamlessly:
 
-### Migrate from the `component-config.yaml` file
+### Step 1: Identify whether your current source configuration file is outdated
 
-To migrate from the `component-config.yaml` file to the `component.yaml` file, do the following:
+You can determine whether you’re using an outdated configuration file in the following ways:
 
-- Add the `schemaVersion` in the `component.yaml` and omit `apiVersion` and `kind`.
-- Move endpoint configurations from the `spec.inbound` section to the `endpoints` section in the `component.yaml` file.
-    - Copy the value of `spec.inbound.context` to `endpoints.service.basePath`.
-    - Copy the value of `spec.inbound.port` to `endpoints.service.port`.
-    - Copy the value of `spec.inbound.networkVisibility` to `endpoints.networkVisibilities`.
+- **During a build:**
+     - On the **Build** page, after triggering a build, a warning will appear if your source configuration file is outdated. Click **View Details** in the **Initialization** -> **Source Config Validation** step. You will see an information banner with an option to update the file.
 
-- Move dependency configurations from the `spec.outbound` section to the `dependencies` section in the `component.yaml` file. 
+- **In existing deployments:**
+     - If an existing deployment uses a build with an outdated source configuration file, you will see a warning icon on the build card of the relevant environment card.
 
-### Migrate from the `endpoints.yaml` file
 
-To migrate from the `endpoints.yaml` file to the `component.yaml` file, do the following:
+### Step 2: Generate the latest `component.yaml` file
 
-- Add the `schemaVersion` in the `component.yaml` and omit `version`.
-- Move endpoint configurations from the `endpoints.yaml` file to the `endpoints` section in the `component.yaml` file.
-    - Copy the value of `context` to `endpoints.service.basePath`.
-    - Copy the value of `port` to `endpoints.service.port`.
-    - Copy the value of `networkVisibility` to `endpoints.networkVisibilities`.
+- In either of the scenarios above, click **Update** to initiate the process of generating the latest `component.yaml` file. The updated file will retain your existing configurations to ensure a smooth update process.
+
+
+### Step 3: Add the generated configuration file to your repository
+
+1. Download the generated `component.yaml` file.
+2. Replace the existing source configuration file in the `.choreo` folder within your source repository.
+    - Ensure the file name is `component.yaml`.
+
+
+### Step 4: Trigger a new build
+
+1. Commit the new `component.yaml` file to your repository. Push changes to the remote Git repository.
+2. Trigger a build using the latest commit.
+
+
+### Step 5: Verify the update
+
+Once the build is complete:
+
+  - Deploy the build.
+  - Confirm that the warning messages no longer appear.
+
+You can benefit from the latest features and enhancements provided by the updated source configuration file.
