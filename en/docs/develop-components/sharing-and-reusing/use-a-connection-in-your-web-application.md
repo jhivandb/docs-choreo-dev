@@ -39,7 +39,7 @@ To connect to a selected service, follow the step-by-step instructions given bel
         </head>
         <body>
             <div id="root"></div>
-            <script src="%PUBLIC_URL%/config.js"></script>
+            <script src="/public/config.js"></script>
         </body>
         </html>
         ``` 
