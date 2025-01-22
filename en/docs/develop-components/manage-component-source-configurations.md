@@ -59,14 +59,14 @@ Click the respective tab to view the structure for your current configuration fi
         # The path should be relative to the docker context.
         schemaFilePath: openapi.yaml
       
-      # +optional Outgoing connection details for the component.
-      dependencies:
-        # +optional Defines the connection references from the Internal Marketplace.
-        connectionReferences:
-          # +required Name of the connection.
-          - name: hr-connection
-            # +required service identifer of the dependent component.
-            resourceRef: service:/HRProject/UserComponent/v1/ad088/PUBLIC
+    # +optional Outgoing connection details for the component.
+    dependencies:
+      # +optional Defines the connection references from the Internal Marketplace.
+      connectionReferences:
+        # +required Name of the connection.
+        - name: hr-connection
+          # +required service identifer of the dependent component.
+          resourceRef: service:/HRProject/UserComponent/v1/ad088/PUBLIC
 
     ```
 
@@ -146,20 +146,20 @@ Click the respective tab to view the structure for your current configuration fi
         # The path should be relative to the docker context.
         schemaFilePath: openapi.yaml
       
-      # +optional Outgoing connection details for the component.
-      dependencies:
-        # +optional Defines the service references from the Internal Marketplace.
-        serviceReferences:
-          # +required Name of the service reference.
-          - name: choreo:///apifirst/HRProject/UserComponent/ad088/v1/PUBLIC
-            # +required Name of the connection instance.
-            connectionConfig: 19d2648b-d29c-4452-afdd-1b9311e81412
-            # +required Environment variables injected into the component for connection configuration.
-            env:
-              # +required Key name of the connection configuration.
-              - from: ServiceURL
-                # +required Environment variable injected into the container.
-                to: SERVICE_URL
+    # +optional Outgoing connection details for the component.
+    dependencies:
+      # +optional Defines the service references from the Internal Marketplace.
+      serviceReferences:
+        # +required Name of the service reference.
+        - name: choreo:///apifirst/HRProject/UserComponent/ad088/v1/PUBLIC
+          # +required Name of the connection instance.
+          connectionConfig: 19d2648b-d29c-4452-afdd-1b9311e81412
+          # +required Environment variables injected into the component for connection configuration.
+          env:
+            # +required Key name of the connection configuration.
+            - from: ServiceURL
+              # +required Environment variable injected into the container.
+              to: SERVICE_URL
     ```
 
     The descriptor-based approach of the `component.yaml` file simplifies and streamlines endpoint and connection configuration management. The use of versioned schemas ensures backward compatibility, providing a seamless transition with future updates.
